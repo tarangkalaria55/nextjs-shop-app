@@ -8,6 +8,12 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
   plugins: [],
+  emailAndPassword: {
+    enabled: true,
+    async sendResetPassword({ user, url, token }) {
+      console.log({ user, url, token });
+    },
+  },
   socialProviders: {
     google: {
       clientId: env.GOOGLE_CLIENT_ID,

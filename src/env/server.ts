@@ -6,8 +6,8 @@ export const env = createEnv({
   extends: [baseEnv],
   server: {
     // Better Auth
-    BETTER_AUTH_SECRET: z.string().min(1),
     BETTER_AUTH_URL: z.string().min(1),
+    BETTER_AUTH_SECRET: z.string().min(1),
 
     // Database
     IS_NEON_DATABASE: z

@@ -5,10 +5,10 @@ import { baseEnv } from "./base";
 export const env = createEnv({
   extends: [],
   client: {
-    NEXT_PUBLIC_PUBLISHABLE_KEY: z.string().min(2).optional().or(z.literal("")),
+    NEXT_PUBLIC_APP_URL: z.string().min(1),
   },
   runtimeEnv: {
-    NEXT_PUBLIC_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   },
   ...baseEnv,
 });
