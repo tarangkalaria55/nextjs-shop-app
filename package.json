@@ -11,7 +11,9 @@
     "typegen": "next typegen",
     "auth:generate": "npx @better-auth/cli@latest generate --config ./src/auth/server.ts --output ./prisma/schemas/auth-schema.prisma --yes",
     "env:push": "npx dotenv-vault@latest push",
-    "env:pull": "npx dotenv-vault@latest pull"
+    "env:pull": "npx dotenv-vault@latest pull",
+    "db:generate": "npx prisma generate",
+    "db:studio": "npx prisma studio"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
