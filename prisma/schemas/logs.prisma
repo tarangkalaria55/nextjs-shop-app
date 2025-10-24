@@ -1,0 +1,7 @@
+model logs {
+  id        String   @id @default(cuid())
+  level     String
+  message   String
+  meta      String?
+  timestamp DateTime @default(now())
+}

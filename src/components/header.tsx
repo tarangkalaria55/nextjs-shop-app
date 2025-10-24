@@ -1,10 +1,16 @@
-import { GitHubIcon, UserButton } from "@daveyplate/better-auth-ui";
+import { UserButton } from "@daveyplate/better-auth-ui";
+import { headers } from "next/headers";
 import Link from "next/link";
-
+import { authClient } from "@/auth/client";
+import { auth } from "@/auth/server";
 import { ModeToggle } from "./mode-toggle";
-import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-export function Header() {
+export async function Header() {
+  const sessionData = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <header className="sticky top-0 z-50 flex h-12 justify-between border-b bg-background/60 px-safe-or-4 backdrop-blur md:h-14 md:px-safe-or-6">
       <Link href="/" className="flex items-center gap-2">
@@ -23,21 +29,25 @@ export function Header() {
             fillRule="evenodd"
           />
         </svg>
-        BETTER-AUTH. STARTER
+        E-Shop
       </Link>
 
       <div className="flex items-center gap-2">
-        <Link
-          href="https://github.com/daveyplate/better-auth-nextjs-starter"
-          target="_blank"
-        >
-          <Button variant="outline" size="icon" className="size-8 rounded-full">
-            <GitHubIcon />
-          </Button>
-        </Link>
-
         <ModeToggle />
-        <UserButton size="icon" />
+        <UserButton
+          size="icon"
+          trigger={
+            <Avatar className="h-8 w-8 cursor-pointer">
+              <AvatarImage
+                src={sessionData?.user.image ?? ""}
+                alt={sessionData?.user.name ?? "User"}
+              />
+              <AvatarFallback>
+                {sessionData?.user.name?.trim()?.[0]?.toUpperCase() ?? "U"}
+              </AvatarFallback>
+            </Avatar>
+          }
+        />
       </div>
     </header>
   );

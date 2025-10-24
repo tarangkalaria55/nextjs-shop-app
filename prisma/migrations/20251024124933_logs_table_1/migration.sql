@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "logs" ALTER COLUMN "meta" SET DATA TYPE TEXT;

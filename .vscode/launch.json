@@ -27,6 +27,19 @@
       ]
     },
     {
+      "name": "Next.js: debug client-side (Comet)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "runtimeExecutable": "${env:COMET_PATH}\\comet.exe",
+      "runtimeArgs": [
+        "--remote-debugging-port=9222",
+        "--user-data-dir=${workspaceFolder}/.vscode/comet-debug-profile"
+      ],
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true
+    },
+    {
       "name": "Next.js: debug full stack",
       "type": "node",
       "runtimeExecutable": "${env:NODE_PATH}\\node.exe",
@@ -35,11 +48,28 @@
       "runtimeArgs": ["--inspect"],
       "skipFiles": ["<node_internals>/**"],
       "serverReadyAction": {
-        "action": "debugWithEdge",
+        "action": "debugWithChrome",
         "killOnServerStop": true,
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
         "webRoot": "${workspaceFolder}"
+      }
+    },
+
+    {
+      "name": "Next.js: debug full stack other browser",
+      "type": "node",
+      "runtimeExecutable": "${env:NODE_PATH}\\node.exe",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+      "runtimeArgs": ["--inspect"],
+      "skipFiles": ["<node_internals>/**"],
+      "serverReadyAction": {
+        "action": "openExternally",
+        "killOnServerStop": true,
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s"
+        // "webRoot": "${workspaceFolder}"
       }
     }
   ]
