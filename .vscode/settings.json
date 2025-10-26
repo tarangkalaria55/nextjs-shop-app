@@ -43,6 +43,12 @@
   },
   "[javascriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[dockercompose]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-containers"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-containers"
   }
   // "exportall.config.folderListener": ["/src/drizzle/schema"]
 }

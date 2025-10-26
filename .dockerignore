@@ -1,0 +1,27 @@
+# Dependencies and build artifacts
+node_modules
+dist
+.next
+
+# Prisma files that are generated or environment-dependent
+.prisma
+# Only keep schema.prisma if you need to generate client *inside* the container.
+# If you run 'npx prisma generate' on the host *before* building, you can ignore the prisma folder entirely or just the generated client folder.
+# For this general ignore, we keep schema.prisma for build-time generation:
+# prisma/
+
+# Editor/OS specific files
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Logs and caching
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+tmp/
+coverage/
+.env.project
+.env.vault
