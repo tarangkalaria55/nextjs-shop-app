@@ -33,13 +33,14 @@ export function Providers({ children }: { children: ReactNode }) {
         nameRequired
         changeEmail
         social={{ providers: [...OAUTH_PROVIDER] }}
-        multiSession
-        account={false}
+        account={true}
         credentials={{
           rememberMe: true,
           confirmPassword: true,
           forgotPassword: true,
         }}
+        emailVerification={true}
+        optimistic={true}
       >
         {children}
 

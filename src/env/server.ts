@@ -5,6 +5,9 @@ import { baseEnv } from "./base";
 export const env = createEnv({
   extends: [baseEnv],
   server: {
+    SITE_NAME: z.string().min(1),
+    BASE_URL: z.string().min(1),
+
     // Better Auth
     BETTER_AUTH_URL: z.string().min(1),
     BETTER_AUTH_SECRET: z.string().min(1),

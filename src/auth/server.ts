@@ -7,7 +7,7 @@ import { env } from "@/env/server";
 import { logger as winstonLogger } from "@/lib/logger";
 
 export const auth = betterAuth({
-  appName: "E Shop",
+  appName: env.SITE_NAME,
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
@@ -26,6 +26,8 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: true,
     resetPasswordTokenExpiresIn: 1 * 60 * 60,
+    autoSignInAfterVerification: true,
+    sendOnSignUp: true,
     async sendResetPassword({ user, url, token }) {
       console.log({ user, url, token });
     },

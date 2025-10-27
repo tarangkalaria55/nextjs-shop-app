@@ -1,8 +1,9 @@
 import { UserButton } from "@daveyplate/better-auth-ui";
 import { headers } from "next/headers";
 import Link from "next/link";
-import { authClient } from "@/auth/client";
 import { auth } from "@/auth/server";
+import { env } from "@/env/server";
+import { CartButton } from "./cart-button";
 import { ModeToggle } from "./mode-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
@@ -29,11 +30,14 @@ export async function Header() {
             fillRule="evenodd"
           />
         </svg>
-        E-Shop
+        {env.SITE_NAME}
       </Link>
 
       <div className="flex items-center gap-2">
+        <CartButton href="/cart" noOfItems={10} />
+
         <ModeToggle />
+
         <UserButton
           size="icon"
           trigger={
