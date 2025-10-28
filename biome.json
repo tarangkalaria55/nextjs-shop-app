@@ -28,8 +28,11 @@
     "rules": {
       "recommended": true,
       "suspicious": {
-        "noUnknownAtRules": "off"
+        "noUnknownAtRules": "off",
+        "noArrayIndexKey": "warn"
       },
+      "correctness": { "useExhaustiveDependencies": "warn" },
+
       "a11y": {
         "noSvgWithoutTitle": "off"
       }
