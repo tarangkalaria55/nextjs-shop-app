@@ -1,0 +1,17 @@
+model Address {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  street    String // e.g., "123 Main St"
+  city      String
+  state     String // e.g., "CA" or full state name
+  zip       String // Postal code
+  country   String   @default("US") // Default to US, but customizable
+  isDefault Boolean  @default(false) // Marks the default shipping address
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Optional: For orders, if you want to link addresses to orders
+  orders    Order[] // If orders reference addresses
+
+  @@map("address")
+}

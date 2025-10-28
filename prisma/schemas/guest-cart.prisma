@@ -1,0 +1,23 @@
+model GuestCart {
+  id        String          @id @default(cuid())
+  guestId   String          @unique // Unique ID for the guest (stored in cookie)
+  items     GuestCartItem[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@map("guest_cart")
+}
+
+// GuestCartItem model for items in guest carts
+model GuestCartItem {
+  id          String    @id @default(cuid())
+  guestCartId String
+  guestCart   GuestCart @relation(fields: [guestCartId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product   @relation(fields: [productId], references: [id])
+  quantity    Int       @default(1)
+
+  // Unique constraint prevents duplicate products in the same guest cart
+  @@unique([guestCartId, productId])
+  @@map("guest_cart_item")
+}

@@ -1,0 +1,16 @@
+model Product {
+  id            String          @id @default(cuid())
+  name          String
+  description   String?
+  price         Float // Price in cents or dollars (e.g., 29.99)
+  image         String? // URL to product image
+  stock         Int             @default(0) // For availability checks
+  category      String? // Optional: e.g., "Electronics"
+  cartItems     CartItem[] // Relation to cart items
+  orderItems    OrderItem[] // If using orders
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  GuestCartItem GuestCartItem[]
+
+  @@map("product")
+}
