@@ -1,4 +1,7 @@
 {
+  "terminal.integrated.fontFamily": "'MesloLGM Nerd Font', Consolas, 'Courier New', monospace",
+  "terminal.integrated.fontLigatures.enabled": true,
+
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,

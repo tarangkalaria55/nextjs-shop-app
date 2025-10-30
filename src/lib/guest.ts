@@ -18,3 +18,10 @@ export const getGuestId = async () => {
   }
   return guestId;
 };
+
+export const removeGuestId = async () => {
+  const cookieStore = await cookies();
+  if (cookieStore.has(GUEST_ID_COOKIE)) {
+    cookieStore.delete(GUEST_ID_COOKIE);
+  }
+};

@@ -16,25 +16,17 @@ export default async function AuthPage({
   const { path } = await params;
 
   return (
-    <main className="container flex grow flex-col items-center justify-center gap-4 self-center p-4 md:p-6">
+    <main className="container mx-auto flex grow flex-col items-center justify-center gap-4 self-center p-4 md:p-6">
       <AuthView path={path} />
 
       {!["callback", "sign-out"].includes(path) && (
         <p className="w-3xs text-center text-muted-foreground text-xs">
           By continuing, you agree to our{" "}
-          <Link
-            className="text-warning underline"
-            href="/terms"
-            target="_blank"
-          >
+          <Link className="text-warning underline" href="#" target="_blank">
             Terms of Service
           </Link>{" "}
           and{" "}
-          <Link
-            className="text-warning underline"
-            href="/privacy"
-            target="_blank"
-          >
+          <Link className="text-warning underline" href="#" target="_blank">
             Privacy Policy
           </Link>
           .

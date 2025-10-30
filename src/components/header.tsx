@@ -1,20 +1,14 @@
 import { UserButton } from "@daveyplate/better-auth-ui";
-import { headers } from "next/headers";
+import { ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
-import { auth } from "@/auth/server";
+import { Badge } from "@/components/ui/badge";
 import { env } from "@/env/server";
-import { CartButton } from "./cart-button";
 import { ModeToggle } from "./mode-toggle";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-export async function Header() {
-  const sessionData = await auth.api.getSession({
-    headers: await headers(),
-  });
-
+export function Header() {
   return (
-    <header className="sticky top-0 z-50 flex h-12 justify-between border-b bg-background/60 px-safe-or-4 backdrop-blur md:h-14 md:px-safe-or-6">
-      <Link href="/" className="flex items-center gap-2">
+    <header className="sticky top-0 z-50 h-12 md:h-14 flex justify-between border-b bg-background/60 backdrop-blur-md px-safe-or-4 md:px-safe-or-6">
+      <Link href="/" className="h-full flex gap-2 items-center">
         <svg
           className="size-5"
           fill="none"
@@ -33,25 +27,25 @@ export async function Header() {
         {env.SITE_NAME}
       </Link>
 
-      <div className="flex items-center gap-2">
-        <CartButton href="/cart" noOfItems={10} />
+      <div className="h-full flex gap-2 items-center">
+        <Link
+          href="#"
+          passHref
+          className="size-8 rounded-full relative inline-flex items-center justify-center border bg-background hover:bg-accent hover:text-accent-foreground transition-colors disabled:opacity-50 disabled:pointer-events-none p-1"
+        >
+          <ShoppingCartIcon className="h-4 w-4" />
+
+          <Badge
+            variant="destructive"
+            className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-xs rounded-full"
+          >
+            0
+          </Badge>
+        </Link>
 
         <ModeToggle />
 
-        <UserButton
-          size="icon"
-          trigger={
-            <Avatar className="h-8 w-8 cursor-pointer">
-              <AvatarImage
-                src={sessionData?.user.image ?? ""}
-                alt={sessionData?.user.name ?? "User"}
-              />
-              <AvatarFallback>
-                {sessionData?.user.name?.trim()?.[0]?.toUpperCase() ?? "U"}
-              </AvatarFallback>
-            </Avatar>
-          }
-        />
+        <UserButton size="icon" className="border" />
       </div>
     </header>
   );

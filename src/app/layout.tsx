@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/header";
-import { Providers } from "./providers";
+import { Providers } from "../components/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,11 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex min-h-svh flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <Header />
-          {children}
+          <div className="h-svh grid grid-rows-[auto_1fr] gap-2">
+            <Header />
+            {children}
+          </div>
         </Providers>
       </body>
     </html>

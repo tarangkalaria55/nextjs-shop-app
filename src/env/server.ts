@@ -13,21 +13,6 @@ export const env = createEnv({
     BETTER_AUTH_SECRET: z.string().min(1),
 
     // Database
-    IS_NEON_DATABASE: z
-      .string()
-      .nullable()
-      .optional()
-      .transform((x) => {
-        if (x === undefined || x === null || x === "") {
-          return false;
-        }
-        const value = x.trim().trim();
-        if (value === "1" || value === "true") {
-          return true;
-        }
-        return false;
-      })
-      .pipe(z.boolean().nonoptional()),
     DATABASE_URL: z.string().min(1),
 
     // Google

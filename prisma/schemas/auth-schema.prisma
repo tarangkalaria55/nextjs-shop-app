@@ -9,8 +9,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
   Cart          Cart?
-  Order         Order[]
   Address       Address[]
+  Order         Order[]
 
   @@unique([email])
   @@map("user")

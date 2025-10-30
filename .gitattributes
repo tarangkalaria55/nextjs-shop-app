@@ -1,0 +1,48 @@
+# Normalize line endings to LF, which is the standard for web development and Next.js.
+# This prevents inconsistencies when collaborating on projects across different operating systems.
+* text=auto eol=lf
+
+# Handle text files (force LF line endings for code)
+*.js    text eol=lf
+*.jsx   text eol=lf
+*.ts    text eol=lf
+*.tsx   text eol=lf
+*.css   text eol=lf
+*.scss  text eol=lf
+*.md    text eol=lf
+*.json  text eol=lf
+*.html  text eol=lf
+
+# Treat images and other assets as binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.ico   binary
+*.svg   binary
+*.gif   binary
+*.webp  binary
+*.heic  binary
+*.ttf   binary
+*.woff  binary
+*.woff2 binary
+*.mp4   binary
+*.mov   binary
+*.pdf   binary
+*.eot   binary
+
+# Prevent diffing binary files
+*.png   -diff
+*.jpg   -diff
+*.jpeg  -diff
+*.ico   -diff
+*.svg   -diff
+*.gif   -diff
+*.webp  -diff
+*.heic  -diff
+*.ttf   -diff
+*.woff  -diff
+*.woff2 -diff
+*.mp4   -diff
+*.mov   -diff
+*.pdf   -diff
+*.eot   -diff
