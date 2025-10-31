@@ -1,35 +1,15 @@
-"use server";
+import { cacheLife, cacheTag } from "next/cache";
+import { getPaginatedProducts } from "@/database/queries/get-paginated-products";
 
-import { unstable_cache } from "next/cache";
-import prisma from "@/database/prisma";
-import type { Prisma } from "@/generated/prisma";
+export const getProducts = async (
+  search: string,
+  pageSize: number,
+  page: number,
+) => {
+  "use cache";
 
-export const getProducts = unstable_cache(
-  async (search: string, pageSize: number, page: number) => {
-    const offset = (page - 1) * pageSize;
+  cacheTag("products");
+  cacheLife("max");
 
-    const filter: Prisma.ProductWhereInput = !search.trim()
-      ? {}
-      : {
-          OR: [
-            { name: { contains: search, mode: "insensitive" } },
-            { description: { contains: search, mode: "insensitive" } },
-          ],
-        };
-
-    const products = await prisma.product.findMany({
-      skip: offset,
-      take: pageSize,
-      where: filter,
-    });
-
-    const totalCount = await prisma.product.count({ where: filter });
-
-    return { products, totalCount };
-  },
-  ["products"] as const,
-  {
-    revalidate: 60,
-    tags: ["products"],
-  },
-);
+  return await getPaginatedProducts(search, pageSize, page);
+};

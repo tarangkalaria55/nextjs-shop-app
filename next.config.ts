@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   reactStrictMode: true,
   typedRoutes: true,
-  compress: true,
+  // compress: true,
   cacheComponents: true,
   images: {
     remotePatterns: [
@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
       },
     ],
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
   output: "standalone",
   transpilePackages: ["@t3-oss/env-nextjs", "@t3-oss/env-core"],

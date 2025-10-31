@@ -29,7 +29,17 @@ export default function ProductCard({ product }: ProductCardProps) {
           height={300}
           className="w-full h-full object-cover rounded-t-lg"
         />
-        <Badge className="absolute top-2 left-2">{product.category}</Badge>
+
+        <Badge className="absolute top-2 left-2 shadow-2xl">
+          {product.category}
+        </Badge>
+
+        {product.stock <= 0 && (
+          <Badge className="absolute top-2 right-2" variant="destructive">
+            Out of stock
+          </Badge>
+        )}
+
         <div className="p-6">
           <CardTitle>{product.name}</CardTitle>
         </div>

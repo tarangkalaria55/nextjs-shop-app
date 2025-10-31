@@ -1,12 +1,16 @@
 {
   "servers": {
-    "Prisma-Local": {
+    "next-devtools": {
       "command": "npx",
-      "args": ["-y", "prisma", "mcp"]
-    },
-    "Prisma-Remote": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.prisma.io/mcp"]
+      "args": ["-y", "next-devtools-mcp@latest"]
     }
+    // "Prisma-Local": {
+    //   "command": "npx",
+    //   "args": ["-y", "prisma", "mcp"]
+    // },
+    // "Prisma-Remote": {
+    //   "command": "npx",
+    //   "args": ["-y", "mcp-remote", "https://mcp.prisma.io/mcp"]
+    // }
   }
 }

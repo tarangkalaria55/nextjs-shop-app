@@ -24,12 +24,13 @@ export default function ProductsFilter({
     "pageSize",
     parseAsInteger.withDefault(10),
   );
+  const [_page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
-  const handleSearch = (value: string) => {
-    setSearch(value);
-    setTimeout(() => {
-      refetchProducts();
-    }, 300);
+  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setSearch(event.target.value);
+    setPage(1);
+    refetchProducts();
   };
 
   const handlePageSizeChange = (value: string) => {
@@ -46,7 +47,7 @@ export default function ProductsFilter({
           placeholder="Search"
           className="w-full"
           value={search}
-          onChange={(e) => handleSearch(e.target.value)}
+          onChange={(e) => onSearchChange(e)}
         />
       </div>
 

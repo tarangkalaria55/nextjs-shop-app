@@ -1,7 +1,6 @@
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { Suspense } from "react";
 import PaginationStateManager from "@/components/pagination-state-manager";
-
 import ProductsFilter from "@/components/products-filter";
 import ProductsList from "@/components/products-list";
 import ProductsListLoading from "@/components/products-list-loading";
@@ -14,7 +13,7 @@ async function Content({ searchParams }: NuqsPageProps<"/">) {
 
   async function refetchProducts() {
     "use server";
-    await revalidateTag("products", { expire: 60 });
+    updateTag("products");
   }
 
   const { totalCount } = await import("@/server/get-products").then((mod) =>
