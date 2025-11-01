@@ -7,7 +7,7 @@ import { ModeToggle } from "./mode-toggle";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 h-12 md:h-14 flex justify-between border-b bg-background/60 backdrop-blur-md px-safe-or-4 md:px-safe-or-6">
+    <header className="sticky top-0 z-50 h-12 md:h-14 flex justify-between gap-40 border-b bg-background/60 backdrop-blur-md px-safe-or-4 md:px-safe-or-6">
       <Link href="/" className="h-full flex gap-2 items-center">
         <svg
           className="size-5"
@@ -26,6 +26,10 @@ export function Header() {
         </svg>
         {env.SITE_NAME}
       </Link>
+
+      <div className="h-full flex gap-2 items-center grow">
+        <Link href="/products">Products</Link>
+      </div>
 
       <div className="h-full flex gap-2 items-center">
         <Link
