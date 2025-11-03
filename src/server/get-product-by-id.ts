@@ -1,10 +1,13 @@
 "use server";
 
-import prisma from "@/database/prisma";
+// import { cacheLife, cacheTag } from "next/cache";
+import { DbProducts } from "@/database/queries/products";
 
 export async function getProductById(productId: string) {
-  const product = await prisma.product.findUnique({
-    where: { id: productId },
-  });
-  return product;
+  // "use cache";
+
+  // cacheTag(`product-${productId}`);
+  // cacheLife("max");
+
+  return await DbProducts.getProductById(productId);
 }

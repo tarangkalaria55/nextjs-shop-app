@@ -1,4 +1,3 @@
-import { updateTag } from "next/cache";
 import { Suspense } from "react";
 import PaginationStateManager from "@/components/pagination-state-manager";
 import ProductsFilter from "@/components/products-filter";
@@ -11,11 +10,6 @@ import { loadSearchParams } from "../search-params";
 async function Content({ searchParams }: NuqsPageProps<"/products">) {
   const { search, pageSize, page } = await loadSearchParams(searchParams);
 
-  async function refetchProducts() {
-    "use server";
-    updateTag("products");
-  }
-
   const { totalCount } = await import("@/server/get-products").then((mod) =>
     mod.getProducts(search, pageSize, page),
   );
@@ -23,7 +17,7 @@ async function Content({ searchParams }: NuqsPageProps<"/products">) {
   return (
     <>
       {/* Filter with refetch callback */}
-      <ProductsFilter refetchProducts={refetchProducts} />
+      <ProductsFilter />
 
       {/* Manage pagination totalPage state */}
       <PaginationStateManager totalCount={totalCount} pageSize={pageSize} />
@@ -34,7 +28,7 @@ async function Content({ searchParams }: NuqsPageProps<"/products">) {
       </Suspense>
 
       {/* Pagination controls with refetch callback */}
-      <ProductsPagination refetchProducts={refetchProducts} />
+      <ProductsPagination />
     </>
   );
 }

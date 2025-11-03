@@ -1,9 +1,7 @@
-import { ShoppingCartIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import AddToCartButton from "@/components/add-to-cart-button";
 import { DEFAULT_PRODUCT_IMAGE_FALLBACK } from "@/components/product-card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -66,22 +64,7 @@ export default async function ProductDetailPage(
           </CardDescription>
         </CardContent>
         <CardFooter className="flex flex-row-reverse justify-between pb-2">
-          {product.stock > 0 ? (
-            <Button asChild>
-              <Link
-                href={`/products/${product.id}`}
-                className="flex items-center gap-2"
-              >
-                <ShoppingCartIcon className="size-4" />
-                Add to Cart
-              </Link>
-            </Button>
-          ) : (
-            <Button className="flex items-center gap-2" disabled>
-              <ShoppingCartIcon className="size-4" />
-              Add to Cart
-            </Button>
-          )}
+          <AddToCartButton product={product} />
         </CardFooter>
       </Card>
     </main>

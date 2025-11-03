@@ -1,5 +1,5 @@
 import { cacheLife, cacheTag } from "next/cache";
-import { getPaginatedProducts } from "@/database/queries/get-paginated-products";
+import { DbProducts } from "@/database/queries/products";
 
 export const getProducts = async (
   search: string,
@@ -11,5 +11,5 @@ export const getProducts = async (
   cacheTag("products");
   cacheLife("max");
 
-  return await getPaginatedProducts(search, pageSize, page);
+  return await DbProducts.getPaginatedProducts(search, pageSize, page);
 };

@@ -7,13 +7,22 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect, useEffectEvent } from "react";
 import { Toaster } from "sonner";
 import { authClient } from "@/auth/client";
 import { OAUTH_PROVIDER } from "@/auth/types";
+import { mergeCart } from "@/server/merge-cart";
 
 export function Providers({ children }: { children: ReactNode }) {
   const router = useRouter();
+
+  const mergeCartEvent = useEffectEvent(async () => {
+    await mergeCart();
+  });
+
+  useEffect(() => {
+    mergeCartEvent();
+  }, [mergeCartEvent]);
 
   return (
     <NuqsAdapter>

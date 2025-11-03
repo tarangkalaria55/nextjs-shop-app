@@ -1,11 +1,12 @@
 import { UserButton } from "@daveyplate/better-auth-ui";
 import { ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
+import { Suspense } from "react";
 import { env } from "@/env/server";
+import CartItemCount from "./cart-item-count";
 import { ModeToggle } from "./mode-toggle";
 
-export function Header() {
+export async function Header() {
   return (
     <header className="sticky top-0 z-50 h-12 md:h-14 flex justify-between gap-40 border-b bg-background/60 backdrop-blur-md px-safe-or-4 md:px-safe-or-6">
       <Link href="/" className="h-full flex gap-2 items-center">
@@ -33,18 +34,18 @@ export function Header() {
 
       <div className="h-full flex gap-2 items-center">
         <Link
-          href="#"
+          href="/cart"
           passHref
           className="size-8 rounded-full relative inline-flex items-center justify-center border bg-background hover:bg-accent hover:text-accent-foreground transition-colors disabled:opacity-50 disabled:pointer-events-none p-1"
         >
           <ShoppingCartIcon className="h-4 w-4" />
 
-          <Badge
-            variant="destructive"
-            className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-xs rounded-full"
-          >
-            0
-          </Badge>
+          <Suspense fallback={null}>
+            <CartItemCount
+              variant="destructive"
+              className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-xs rounded-full"
+            />
+          </Suspense>
         </Link>
 
         <ModeToggle />

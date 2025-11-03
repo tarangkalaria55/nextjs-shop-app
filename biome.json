@@ -29,7 +29,7 @@
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off",
-        "noArrayIndexKey": "warn"
+        "noArrayIndexKey": "off"
       },
       "correctness": { "useExhaustiveDependencies": "warn" },
 

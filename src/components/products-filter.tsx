@@ -8,15 +8,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { refetchCachedProducts } from "@/server/refetch-cached-products";
 import { Input } from "./ui/input";
 
-interface ProductsFilterProps {
-  refetchProducts: () => Promise<void>;
-}
+// type ProductsFilterProps = {};
 
-export default function ProductsFilter({
-  refetchProducts,
-}: ProductsFilterProps) {
+export default function ProductsFilter() {
   const [search, setSearch] = useQueryState("search", {
     defaultValue: "",
   });
@@ -30,13 +27,13 @@ export default function ProductsFilter({
     event.preventDefault();
     setSearch(event.target.value);
     setPage(1);
-    refetchProducts();
+    refetchCachedProducts();
   };
 
   const handlePageSizeChange = (value: string) => {
     setPageSize(Number(value));
     setTimeout(() => {
-      refetchProducts();
+      refetchCachedProducts();
     }, 300);
   };
 

@@ -17,7 +17,7 @@ export async function GET(
       name: faker.commerce.productName(),
       description: faker.commerce.productDescription(),
       price: parseFloat(faker.commerce.price({ min: 1, max: 2000 })),
-      stock: faker.number.int({ min: 0, max: 100 }),
+      stock: faker.number.int({ min: 0, max: 10 }),
       category: faker.commerce.department(),
       image: faker.image.urlPicsumPhotos({ width: 300, height: 300 }),
     });

@@ -1,4 +1,4 @@
-import "server-only";
+// import "server-only";
 
 import { withAccelerate } from "@prisma/extension-accelerate";
 import type { PrismaClient as NodePrismaClient } from "@/generated/prisma";

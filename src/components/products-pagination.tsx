@@ -7,22 +7,17 @@ import {
   PaginationContent,
   PaginationItem,
 } from "@/components/ui/pagination";
+import { refetchCachedProducts } from "@/server/refetch-cached-products";
 import { Button } from "./ui/button";
 
-interface ProductsPaginationProps {
-  refetchProducts: () => Promise<void>;
-}
-
-export default function ProductsPagination({
-  refetchProducts,
-}: ProductsPaginationProps) {
+export default function ProductsPagination() {
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const [totalPage] = useQueryState("totalPage", parseAsInteger.withDefault(1));
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
     setTimeout(() => {
-      refetchProducts();
+      refetchCachedProducts();
     }, 100);
   };
 

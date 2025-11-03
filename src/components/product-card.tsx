@@ -9,12 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type { Product } from "./shared/types/product";
+import type { DbProducts } from "@/database/queries/products";
+import AddToCartButton from "./add-to-cart-button";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 
 interface ProductCardProps {
-  product: Product;
+  product: DbProducts.PaginatedProductType;
 }
 
 export const DEFAULT_PRODUCT_IMAGE_FALLBACK = "/images/placeholder.png";
@@ -35,7 +36,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.category}
         </Badge>
 
-        {product.stock <= 0 && (
+        {product.stockAvailable <= 0 && (
           <Badge className="absolute top-2 right-2" variant="destructive">
             Out of stock
           </Badge>
@@ -52,22 +53,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </CardDescription>
       </CardContent>
       <CardFooter className="flex flex-row-reverse justify-between pb-2">
-        {product.stock > 0 ? (
-          <Button asChild>
-            <Link
-              href={`/products/${product.id}`}
-              className="flex items-center gap-2"
-            >
-              <ShoppingCartIcon className="size-4" />
-              Add to Cart
-            </Link>
-          </Button>
-        ) : (
-          <Button className="flex items-center gap-2" disabled>
-            <ShoppingCartIcon className="size-4" />
-            Add to Cart
-          </Button>
-        )}
+        <AddToCartButton product={product} />
 
         <Button asChild>
           <Link
