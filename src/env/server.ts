@@ -30,6 +30,10 @@ export const env = createEnv({
     EMAIL_SERVER_PORT: z.coerce.number(),
     EMAIL_FROM: z.string().min(1),
 
+    // Stripe
+    STRIPE_SECRET_KEY: z.string().min(1),
+    STRIPE_WEBHOOK_SECRET: z.string().min(1),
+
     // Settings
     PAGE_SIZE: z.coerce.number(),
     PAYMENT_METHODS: z

@@ -5,9 +5,9 @@ model Address {
   street    String // e.g., "123 Main St"
   city      String
   state     String // e.g., "CA" or full state name
+  phone     String
   zip       String // Postal code
   country   String   @default("US") // Default to US, but customizable
-  isDefault Boolean  @default(false) // Marks the default shipping address
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // Optional: For orders, if you want to link addresses to orders

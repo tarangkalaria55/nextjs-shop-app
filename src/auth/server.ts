@@ -1,17 +1,42 @@
+import { stripe } from "@better-auth/stripe";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { createAuthMiddleware } from "better-auth/api";
 import { nextCookies } from "better-auth/next-js";
+import { customSession } from "better-auth/plugins";
+import Stripe from "stripe";
 import prisma from "@/database/prisma";
+import { getStripeCustomerIdForUser } from "@/database/queries/users";
 import { env } from "@/env/server";
 import { logger as winstonLogger } from "@/lib/logger";
+
+const stripeClient = new Stripe(env.STRIPE_SECRET_KEY, {
+  apiVersion: "2025-10-29.clover",
+});
 
 export const auth = betterAuth({
   appName: env.SITE_NAME,
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  plugins: [nextCookies()],
+  plugins: [
+    nextCookies(),
+    stripe({
+      stripeClient,
+      stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET,
+      createCustomerOnSignUp: true,
+    }),
+    customSession(async ({ user, session }) => {
+      const stripeCustomerId = await getStripeCustomerIdForUser(user.id);
+      return {
+        user: {
+          ...user,
+          stripeCustomerId,
+        },
+        session,
+      };
+    }),
+  ],
   socialProviders: {
     google: {
       clientId: env.GOOGLE_CLIENT_ID,

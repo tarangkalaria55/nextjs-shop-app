@@ -12,6 +12,8 @@ model User {
   Address       Address[]
   Order         Order[]
 
+  stripeCustomerId String?
+
   @@unique([email])
   @@map("user")
 }

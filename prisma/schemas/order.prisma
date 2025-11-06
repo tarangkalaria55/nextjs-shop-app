@@ -1,14 +1,15 @@
 model Order {
-  id        String      @id @default(cuid())
-  userId    String
-  user      User        @relation(fields: [userId], references: [id])
-  addressId String? // New: Link to shipping address
-  address   Address?    @relation(fields: [addressId], references: [id])
-  items     OrderItem[]
-  total     Float
-  status    String      @default("pending") // e.g., pending, shipped, delivered
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  id              String      @id @default(cuid())
+  userId          String
+  user            User        @relation(fields: [userId], references: [id])
+  addressId       String?
+  address         Address?    @relation(fields: [addressId], references: [id])
+  items           OrderItem[]
+  total           Float
+  status          String      @default("payment_pending") // e.g., pending, shipped, delivered
+  paymentIntentId String
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 
   @@map("order")
 }
