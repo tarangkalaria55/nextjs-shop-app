@@ -1,15 +1,30 @@
+enum OrderCheckoutStatus {
+  CHECKOUT_PENDING
+  CHECKOUT_SUCCEDED
+  CHECKOUT_FAILED
+}
+
+enum OrderStatus {
+  CHECKOUT_PENDING
+  CHECKOUT_SUCCEDED
+  CHECKOUT_FAILED
+  ORDER_PENDING
+  ORDER_SHIPPED
+  ORDER_DELIVERED
+}
+
 model Order {
-  id              String      @id @default(cuid())
+  id              String              @id @default(cuid())
   userId          String
-  user            User        @relation(fields: [userId], references: [id])
-  addressId       String?
-  address         Address?    @relation(fields: [addressId], references: [id])
+  user            User                @relation(fields: [userId], references: [id])
+  address         ShippingAddress?
   items           OrderItem[]
   total           Float
-  status          String      @default("payment_pending") // e.g., pending, shipped, delivered
-  paymentIntentId String
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  checkout_status OrderCheckoutStatus @default(CHECKOUT_PENDING)
+  status          OrderStatus         @default(CHECKOUT_PENDING)
+  stripeSessionId String?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
 
   @@map("order")
 }
@@ -24,4 +39,24 @@ model OrderItem {
   price     Float // Price at time of order
 
   @@map("order_item")
+}
+
+model ShippingAddress {
+  id          String  @id @default(cuid())
+  name        String
+  phone       String?
+  line1       String // e.g., "123 Main St"
+  line2       String?
+  city        String // e.g., "CA" or full state name
+  state       String
+  postal_code String // Postal code
+  country     String  @default("US") // Default to US, but customizable
+
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("order_address")
 }

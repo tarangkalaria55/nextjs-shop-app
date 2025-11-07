@@ -9,6 +9,7 @@ import prisma from "@/database/prisma";
 import { getStripeCustomerIdForUser } from "@/database/queries/users";
 import { env } from "@/env/server";
 import { logger as winstonLogger } from "@/lib/logger";
+import { stripeOrderEvent } from "@/lib/stripe-order-event";
 
 const stripeClient = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-10-29.clover",
@@ -25,6 +26,9 @@ export const auth = betterAuth({
       stripeClient,
       stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET,
       createCustomerOnSignUp: true,
+      onEvent: async (event) => {
+        await stripeOrderEvent(event);
+      },
     }),
     customSession(async ({ user, session }) => {
       const stripeCustomerId = await getStripeCustomerIdForUser(user.id);

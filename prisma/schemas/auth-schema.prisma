@@ -9,7 +9,6 @@ model User {
   sessions      Session[]
   accounts      Account[]
   Cart          Cart?
-  Address       Address[]
   Order         Order[]
 
   stripeCustomerId String?
